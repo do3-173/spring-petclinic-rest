@@ -40,10 +40,10 @@ jobs:
         context: .
         push: true
         tags: |
-          registry.p1.praksa.abhapp.com/spring-petclinic-rest:latest
-          registry.p1.praksa.abhapp.com/spring-petclinic-rest:${{ steps.version.outputs.version }}
-          registry.p1.praksa.abhapp.com/spring-petclinic-rest:${{ steps.version.outputs.short_sha }}
-        cache-from: type=registry,ref=registry.p1.praksa.abhapp.com/spring-petclinic-rest:latest
+          registry.praksa.abhapp.com/spring-petclinic-rest:latest
+          registry.praksa.abhapp.com/spring-petclinic-rest:${{ steps.version.outputs.version }}
+          registry.praksa.abhapp.com/spring-petclinic-rest:${{ steps.version.outputs.short_sha }}
+        cache-from: type=registry,ref=registry.praksa.abhapp.com/spring-petclinic-rest:latest
         cache-to: type=inline
 
     - name: Image build summary
@@ -70,7 +70,7 @@ jobs:
 
     - name: Deploy with docker-compose
       run: |
-        docker-compose -f docker-compose-ec2.yml up -d backend
+        cd /home/ec2-user && docker-compose up -d backend
 
     - name: Deployment summary
       run: echo "✅ Backend deployed successfully"
